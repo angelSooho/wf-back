@@ -55,7 +55,7 @@ jobs:
       
       - name: Update Project Version with Gradle
         env:
-            GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         if: steps.vars.outputs.INCREMENT
         run: |
           ./gradlew updateVersion -Pincrement=${{ steps.vars.outputs.INCREMENT }}
@@ -111,12 +111,11 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           password: ${{ secrets.SSH_PASSWORD }}
-          port: 2226
           script: |
-            docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} -p ${{ secrets.DOCKER_HUB_PASSWORD }}
-            docker stop withfestival_app || true
-            docker rm withfestival_app || true
-            docker pull ${{ secrets.DOCKER_REPO }}/withfestival
-            docker run --name=withfestival_app --network docker-net --restart unless-stopped \
+            sudo docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} -p ${{ secrets.DOCKER_HUB_PASSWORD }}
+            sudo docker stop withfestival_app || true
+            sudo docker rm withfestival_app || true
+            sudo docker pull ${{ secrets.DOCKER_REPO }}/withfestival
+            sudo docker run --name=withfestival_app --network docker-net --restart unless-stopped \
             -p 8080:8080 -e TZ=Asia/Seoul -d ${{ secrets.DOCKER_REPO }}/withfestival
 
