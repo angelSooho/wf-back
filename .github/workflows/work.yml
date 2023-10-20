@@ -97,8 +97,8 @@ jobs:
       - name: 도커 이미지 빌드 및 푸시
         run: |
           docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} -p ${{ secrets.DOCKER_HUB_PASSWORD }}
-          docker build -t ${{ secrets.DOCKER_REPO }}/withfestival .
-          docker push ${{ secrets.DOCKER_REPO }}/withfestival
+          docker build -t ${{ secrets.DOCKER_REPO }}/withfestivalTest .
+          docker push ${{ secrets.DOCKER_REPO }}/withfestivalTest
   deploy:
     name: 원격 서버에 배포
     runs-on: ubuntu-latest
