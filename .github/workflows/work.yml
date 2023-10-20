@@ -119,3 +119,4 @@ jobs:
             docker pull ${{ secrets.DOCKER_REPO }}/withfestival
             docker run --name=withfestival_app --network docker-net --restart unless-stopped \
             -p 8080:8080 -e TZ=Asia/Seoul -d ${{ secrets.DOCKER_REPO }}/withfestival
+
