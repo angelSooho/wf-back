@@ -14,7 +14,7 @@
 ## 기술 스택
 Java, SpringBoot 3.x, Spring Data JPA, Querydsl, JUnit5, Mockito, Gradle
 
-AWS - EC2, S3, RDS, Redis, Github Actions
+AWS - EC2, S3, RDS, Redis, Github Actions 
 
 MARIA DB
 
