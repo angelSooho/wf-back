@@ -9,7 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity
+@Entity(name = "view_count")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 public class ViewCount {

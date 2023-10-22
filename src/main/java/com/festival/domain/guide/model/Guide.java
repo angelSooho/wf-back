@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Entity
+@Entity(name = "guide")
 public class Guide extends BaseEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
