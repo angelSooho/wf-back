@@ -1,7 +1,4 @@
 spring:
-  datasource:
-    driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://mariadb_1:3306/withfestival?characterEncoding=UTF-8&serverTimezone=UTC
   jpa:
     hibernate:
       ddl-auto: none
