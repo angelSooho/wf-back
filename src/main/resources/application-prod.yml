@@ -1,4 +1,9 @@
 spring:
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: ${custom.url}
+    username: ${custom.username}
+    password: ${custom.password}
   jpa:
     hibernate:
       ddl-auto: create
