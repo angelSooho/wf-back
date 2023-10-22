@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Entity
+@Entity(name = "time_table")
 public class TimeTable extends BaseEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)

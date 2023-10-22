@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Entity
+@Entity(name = "bamboo_forest")
 public class BamBooForest extends BaseEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)

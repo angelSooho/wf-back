@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
-@Entity
+@Entity(name = "program")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 public class Program extends BaseEntity {

@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-@Entity
+@Entity(name = "image")
 @Getter
 @NoArgsConstructor
 public class Image {

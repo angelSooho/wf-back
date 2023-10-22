@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Entity
+@Entity(name = "member")
 public class Member extends AuthDetailsEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
