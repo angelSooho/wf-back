@@ -31,3 +31,4 @@ MARIA DB
 <a href= "https://bedecked-hosta-ff2.notion.site/dee8e72c02e044f882f19392b1cd413f?pvs=4" target="_blank">  3. 로그인/로그아웃 인증 흐름(feat.Redis)</a><br/>
 <a href= "https://bedecked-hosta-ff2.notion.site/d4e79a01056747cf811cbec94324fb32?pvs=4" target="_blank">  4. 운영 상태 관리 로직(feat.Redis)</a><br/>
 <a href= "https://bedecked-hosta-ff2.notion.site/Redis-RDB-a5a749ab80a4457c87d42f316e3a9e71?pvs=4" target="_blank">  5. Redis RDB 성능테스트 기록(feat.Redis)</a><br/>
+ 
