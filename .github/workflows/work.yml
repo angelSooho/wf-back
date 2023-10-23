@@ -88,6 +88,9 @@ jobs:
         run: chmod +x gradlew
       - name: gradle 빌드
         run: ./gradlew build --no-daemon
+      - name: Extract version
+        id: get_version
+        run: echo "::set-output name=VERSION::$(./gradlew properties --no-daemon | grep "version:" | awk '{print $2}')"
       - name: build 폴더를 캐시에 저장
         uses: actions/upload-artifact@v3
         with:
@@ -97,8 +100,8 @@ jobs:
       - name: 도커 이미지 빌드 및 푸시
         run: |
           docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} -p ${{ secrets.DOCKER_HUB_PASSWORD }}
-          docker build -t ${{ secrets.DOCKER_REPO }}/withfestival_test .
-          docker push ${{ secrets.DOCKER_REPO }}/withfestival_test
+          docker build -t ${{ secrets.DOCKER_REPO }}/withfestival_test:${{ steps.get_version.outputs.VERSION }} .
+          docker push ${{ secrets.DOCKER_REPO }}/withfestival_test:${{ steps.get_version.outputs.VERSION }}
   deploy:
     name: 원격 서버에 배포
     runs-on: ubuntu-latest
@@ -115,7 +118,22 @@ jobs:
             sudo docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} -p ${{ secrets.DOCKER_HUB_PASSWORD }}
             sudo docker stop withfestival_app || true
             sudo docker rm withfestival_app || true
-            sudo docker pull ${{ secrets.DOCKER_REPO }}/withfestival
-            sudo docker run --name=withfestival_app --network docker-net --restart unless-stopped \
-            -p 8080:8080 -e TZ=Asia/Seoul -d ${{ secrets.DOCKER_REPO }}/withfestival
 
+            # Get the image ID of the currently running container
+            PREVIOUS_IMAGE_ID=$(sudo docker inspect withfestival_app --format '{{.Image}}')
+
+            # Search Latest Image Version
+            VERSION=$(curl -s "https://registry.hub.docker.com/v2/repositories/${{ secrets.DOCKER_REPO }}/withfestival_test/tags/" | \
+             jq -r '.results[].name' | sort -V | tail -n 1)
+
+            # Docker Image Run
+            sudo docker pull ${{ secrets.DOCKER_REPO }}/withfestival_test:${VERSION}
+            if ! sudo docker run --name=withfestival_app --network docker-net --restart unless-stopped \
+             -p 8080:8080 -e TZ=Asia/Seoul -d ${{ secrets.DOCKER_REPO }}/withfestival_test:${VERSION}; then
+                echo "Docker run failed, rolling back to previous image..."
+                sudo docker run --name=withfestival_app --network docker-net --restart unless-stopped \
+                -p 8080:8080 -e TZ=Asia/Seoul -d $PREVIOUS_IMAGE_ID
+            else
+                # Remove old images if docker run succeeds
+                sudo docker image prune -f
+            fi
