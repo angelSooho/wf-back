@@ -105,7 +105,8 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           password: ${{ secrets.SSH_PASSWORD }}
           script: |
-            sudo docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} -p ${{ secrets.DOCKER_HUB_PASSWORD }}
+            echo ${{ secrets.DOCKER_HUB_PASSWORD }} | sudo docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} --password-stdin
+
             sudo docker stop withfestival_app || true
             sudo docker rm withfestival_app || true
 
