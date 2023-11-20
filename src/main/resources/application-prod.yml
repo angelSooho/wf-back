@@ -20,3 +20,7 @@ custom:
 
 logging.level:
   org.hibernate.SQL: debug
+
+slack:
+  webhook:
+    url: ${custom.SLACK_WEBHOOK_PRODUCTION_URL}

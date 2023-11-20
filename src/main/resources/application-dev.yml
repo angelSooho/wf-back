@@ -23,3 +23,7 @@ custom:
 logging.level:
   org.hibernate.SQL: debug
   org.hibernate.type: trace
+
+slack:
+  webhook:
+    url: ${custom.SLACK_WEBHOOK_DEVELOP_URL}
